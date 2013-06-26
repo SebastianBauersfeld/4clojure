@@ -1,0 +1,3 @@
+*.swp
+\.lein-repl-history
+target/
