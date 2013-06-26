@@ -12,3 +12,20 @@
 ; #80 Perfect Numbers
 (defn perfect [n]
   (= (reduce + (filter #(zero? (mod n %)) (range 1 n))) n))
+
+
+; #60 Sequence Reductions
+(defn step-reduc
+  ([func coll]
+   (if (empty? coll)
+     nil
+     (step-reduc func (first coll) (rest coll))))
+  ([func acc coll]
+   (if (empty? coll)
+     (list acc)
+     (lazy-seq (cons
+                 acc
+                 (step-reduc func
+                             (func acc (first coll))
+                             (rest coll)))))))
+
