@@ -38,3 +38,19 @@
                (apply (first fns) args)
                ((first fns) (call (rest fns) args))))]
     (fn [& args] (call fns args))))
+
+
+; #77 Anagram Finder
+; good lord, that's ugly, guess I need more practice...
+(defn afinder [words]
+  (letfn [(agram [w1 w2]
+            (= (akey w1) (akey w2)))
+          (akey [w]
+            (reduce #(assoc %1 %2 (if-let [val (%1 %2)] (inc val) 1)) {} w))]
+          (set
+            (map val 
+                 (filter #(> (count (val %)) 1) 
+                         (reduce
+                           #(assoc %1 (akey %2) (if-let [s (%1 (akey %2))] (conj s %2) #{%2}))
+                           {}
+                           words))))))
