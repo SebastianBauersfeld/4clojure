@@ -41,7 +41,7 @@
 
 
 ; #77 Anagram Finder
-; good lord, that's ugly, guess I need more practice...
+; good lord, that's ugly, I need more practice...
 (defn afinder [words]
   (letfn [(agram [w1 w2]
             (= (akey w1) (akey w2)))
@@ -54,3 +54,12 @@
                            #(assoc %1 (akey %2) (if-let [s (%1 (akey %2))] (conj s %2) #{%2}))
                            {}
                            words))))))
+
+
+; #78 Reimplement Trampoline
+(defn tramp [f & args]
+  (letfn [(invoke [f]
+            (if (fn? f)
+              (recur (f))
+              f))]
+    (invoke (apply f args))))
